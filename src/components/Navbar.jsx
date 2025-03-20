@@ -1,27 +1,38 @@
-import { Link } from 'react-router-dom'; // Handles page navigation without reloading
-import './Navbar.css'; // ✅ Import external CSS
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./Navbar.css"; 
+const Navbar = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState("");
 
-// Navbar component definition
-const Navbar = () => {
-    return (
-        <nav className="navbar">
-            {/* Logo section */}
-            <h2 className="logo">YCA</h2>
+  const handleSearch = (event) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+    onSearch(value); // Pass the search value to the parent component (ProductList)
+  };
 
-            {/* Navigation links */}
-            <ul className="nav-links">
-                <li>
-                    <Link to="/" className="nav-link">Home</Link>
-                </li>
-                <li>
-                    <Link to="/cart" className="nav-link">Cart</Link>
-                </li>
-                <li>
-                    <Link to="/checkout" className="nav-link">Checkout</Link>
-                </li>
-            </ul>
-        </nav>
-    );
+  return (
+    <nav className="navbar">
+      <div className="logo-container">
+        <Link to="/" className="logo">
+          <h2>YCA</h2>
+        </Link>
+        <span className="slogan">Wear it proud</span> {/* Slogan */}
+      </div>
+
+      <input
+        type="text"
+        className="search-input"
+        placeholder="Search products..."
+        value={searchTerm}
+        onChange={handleSearch}
+      />
+
+      <div className="nav-links">
+        <Link to="/">Home</Link>
+        <Link to="/cart">Cart</Link>
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;
