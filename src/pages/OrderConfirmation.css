@@ -1,0 +1,15 @@
+.order-confirmation {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .home-button {
+    padding: 10px 20px;
+    background: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+  

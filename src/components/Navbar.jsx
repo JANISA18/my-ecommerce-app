@@ -30,6 +30,8 @@ const Navbar = ({ onSearch }) => {
       <div className="nav-links">
         <Link to="/">Home</Link>
         <Link to="/cart">Cart</Link>
+        <Link to="/checkout">Checkout</Link>
+
       </div>
     </nav>
   );

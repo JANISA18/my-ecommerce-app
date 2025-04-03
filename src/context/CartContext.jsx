@@ -1,32 +1,30 @@
-import React, { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 
-export const CartContext = createContext(); // Named export
+export const CartContext = createContext();
 
-const CartProvider = ({ children }) => {
-    const [cart, setCart] = useState(() => {
-        // Retrieve cart from localStorage on first load
-        const savedCart = localStorage.getItem("cart");
+export const CartProvider = ({ children }) => {
+    const [cartItems, setCartItems] = useState(() => {
+        const savedCart = localStorage.getItem("cartItems");
         return savedCart ? JSON.parse(savedCart) : [];
     });
-
-    // Save cart to localStorage whenever it changes
+    // Save cart to localStorage whenever it updates
     useEffect(() => {
-        localStorage.setItem("cart", JSON.stringify(cart));
-    }, [cart]);
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    }, [cartItems]);
 
     const addToCart = (product) => {
-        setCart((prevCart) => [...prevCart, product]);
+        setCartItems((prev) => [...prev, product]);
     };
 
+    // Function to remove item from cart
     const removeFromCart = (id) => {
-        setCart((prevCart) => prevCart.filter((item) => item.id !== id));
-    };
-
+        const updatedCart = cartItems.filter(item => item.id !== id);
+        setCartItems(updatedCart);
+    }; 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart}}>
             {children}
         </CartContext.Provider>
     );
 };
-
 export default CartProvider;
